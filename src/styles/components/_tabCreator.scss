@@ -1,0 +1,33 @@
+.tabCreator {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 3rem;
+
+    &__intro {
+        font-size: 1.2rem;
+    }
+
+    &__trigger {
+        button {
+            display: flex;
+            align-items: center;
+            background-color: $primary;
+            color: white;
+            border: none;
+            cursor: pointer;
+            padding: 1rem;
+            border-radius: $radius;
+            font-weight: 600;
+            font-size: .8rem;
+            user-select: none;
+        }
+
+        svg {
+            fill: white;
+            width: 1rem;
+            height: 1rem;
+            margin-right: .5rem;
+        }
+    }
+}

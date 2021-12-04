@@ -1,8 +1,12 @@
+import React from 'react';
+import Home from './pages/Home';
+import './styles/style.scss';
+
 const App = () => {
     return (
-        <div>
-            
-        </div>
+        <React.Fragment>
+            <Home />
+        </React.Fragment>
     )
 }
 

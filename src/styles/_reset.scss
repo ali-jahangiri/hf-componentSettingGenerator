@@ -1,0 +1,19 @@
+* {
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+    
+    ::-webkit-scrollbar {
+        display: none !important;
+    }
+}
+
+
+body {
+	font-family: IRANSans , sans-serif;
+    color: $darkText;
+}
+
+button {
+	font-family: IRANSans , sans-serif;
+}
