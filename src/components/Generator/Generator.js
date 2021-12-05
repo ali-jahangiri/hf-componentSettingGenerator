@@ -1,17 +1,28 @@
-import React, { useState } from "react";
+import React, { useLayoutEffect, useRef, useState } from "react";
 import { developerDefaultSet, developerTabDefaultSet } from "./static/DeveloperDefaultSet";
 
 import Input from "../../components/Input";
-import TabCreator from "./TabCreator";
+import TabHeader from "./TabHeader";
 import EmptyCanvas from "./EmptyCanvas";
 
-import { idGenerator } from "../../utils";
+import { idGenerator, selfClearTimeout } from "../../utils";
 import Tab from "./Tab";
 import RowCreator from "./RowCreator";
 import Controllers from "./Controllers";
 
 const Generator = () => {
-    const [store, setStore] = useState({ sections : [{ tabs : [] , id : idGenerator()}] , primary: developerDefaultSet.primaryList.map(el => ({ name : el.key , value : "" })) });
+    const [store, setStore] = useState({ sections : [{ tabs : [{ id : idGenerator() , name : "" , options : [] }] , id : idGenerator() , name : ""}] , primary: developerDefaultSet.primaryList.map(el => ({ name : el.key , value : "" })) });
+    const containerRef = useRef();
+    const [headerPos, setHeaderPos] = useState('top');
+
+
+    useLayoutEffect(function windowsScrollHandler() {
+        window.addEventListener("scroll" , () => {
+            const scrolledCount = window.pageYOffset || (document.documentElement || document.body.parentNode || document.body).scrollTop
+            if(scrolledCount <= 25) setHeaderPos('top')
+            else setHeaderPos("scrolled");
+        })
+    } , []);
 
     const onPrimaryFieldChangeHandler = (key , value) => {
         setStore(prev => ({
@@ -20,30 +31,45 @@ const Generator = () => {
         }))
     }
 
-    const createNewColumnHandler = () => {
+    const createNewColumnHandler = sectionId => {
         setStore(prev => ({
             ...prev ,
-            tabs : [
-                ...prev.tabs,
-                {
-                    id : idGenerator(),
-                    ...developerTabDefaultSet,
-                }
-            ]
+            sections : prev.sections.map(el => el.id === sectionId ? {
+                ...el,
+                tabs : [...el.tabs , { id : idGenerator() , ...developerTabDefaultSet }]
+            } : el)
         }))
     }
 
     const createNewRowHandler = () => {
         setStore(prev => ({
             ...prev ,
-            sections : [...prev.sections , {tabs : [] , id : idGenerator()}]
+            sections : [...prev.sections , {tabs : [] , id : idGenerator() , name :"" }]
+        }))
+
+        selfClearTimeout(() => {
+            window.scrollTo({ left : 0 , top : containerRef.current.scrollHeight , behavior: 'smooth' })
+        } , 1000)
+    }
+
+    const changeTabDetailsHandler = (sectionId ,tabId , targetKey , value) => {
+       setStore(prev => ({
+            ...prev ,
+            sections : prev.sections.map(el => el.id === sectionId ? ({
+                ...el,
+                tabs : el.tabs.map(tab => tab.id === tabId ? {
+                    ...tab,
+                    [targetKey] : value
+                } : tab)
+            }) : el)
         }))
     }
 
-    const changeTabDetailsHandler = (tabId , targetKey , value) => {
+
+    const changeSectionDetailsHandler = (sectionId , targetKey , value) => {
         setStore(prev => ({
-            ...prev ,
-            tabs : prev.tabs.map(el => el.id === tabId ? ({
+            ...prev,
+            sections : prev.sections.map(el => el.id === sectionId ? ({
                 ...el,
                 [targetKey] : value
             }) : el)
@@ -51,18 +77,25 @@ const Generator = () => {
     }
     
 
+    console.log(store);
 
     return (
-        <div className="generator">
+        <div ref={containerRef} className="generator">
             <div className="generator__header">
-                <Controllers />
-                <p>ساخت تنظیمات جدید</p>
+                <div className={`generator__header__innerContainer ${headerPos === "scrolled" ? "generator__header__innerContainer--scrolled" : ""}`}>
+                    <Controllers />
+                    <div className="generator__header__intro">
+                        <p>ساخت تنظیمات جدید</p>
+                        <div />
+                    </div>
+                </div>
             </div>
             <div className="generator__primaryForm">
                 {
                     developerDefaultSet.primaryList.map((el , i) => (
                         <div key={i}>
                             <Input
+                                inputStyle={{ backgroundColor : "transparent" }}
                                 value={store.primary.find(primary => primary.name === el.key).value}
                                 containerStyle={{ width : "100%" }} 
                                 label={el.label} 
@@ -77,14 +110,19 @@ const Generator = () => {
             {
                 store.sections.map((section , index) => (
                     <div className="section" key={index}>
-                            <TabCreator createTabHandler={createNewColumnHandler} />
-                            <div className="generator__tabDirectory">
-                                {
-                                !section.tabs.length 
-                                    ? <EmptyCanvas onClick={createNewColumnHandler} /> 
-                                    : store.tabs.map((el , i) => <Tab changeDetailsHandler={changeTabDetailsHandler} index={i + 1} key={i} {...el} />)
-                                }
-                            </div>
+                        <TabHeader
+                            nameChangeHandler={value => changeSectionDetailsHandler(section.id , "name" , value)}
+                            createTabHandler={() => createNewColumnHandler(section.id)} />
+                        <div className="generator__tabDirectory">
+                            {
+                            !section.tabs.length 
+                                ? <EmptyCanvas onClick={() => createNewColumnHandler(section.id)} /> 
+                                : section.tabs.map((el , i) => <Tab changeDetailsHandler={(...rest) => changeTabDetailsHandler(section.id , ...rest)} index={i + 1} key={i} {...el} />)
+                            }
+                        </div>
+                        {
+                            index !== (store.sections.length - 1) && <div className="section__divider" />
+                        }
                     </div>
                 )) 
             }

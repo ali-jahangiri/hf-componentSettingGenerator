@@ -5,7 +5,7 @@ const Input = ({
     onChange,
     label,
     containerStyle = {},
-    inputStyle,
+    inputStyle = {},
 }) => {
     const [isFocused, setIsFocused] = useState(false)
     const inputRef = useRef();
@@ -26,7 +26,7 @@ const Input = ({
 
     return (
         <div style={containerStyle} className={`input ${isFocused ? "input--focus" : ""}`}>
-            <input ref={inputRef} onBlur={blurHandler} onFocus={focusHandler} onChange={onChangeHandler} value={value} />
+            <input style={inputStyle} ref={inputRef} onBlur={blurHandler} onFocus={focusHandler} onChange={onChangeHandler} value={value} />
             <p onClick={() => {
                 focusHandler();
                 inputRef.current.focus()

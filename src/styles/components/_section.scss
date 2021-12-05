@@ -17,9 +17,31 @@
     }
 }
 
+@keyframes sectionDividerGetHight {
+    from {
+        width: 0;
+    }
+    to {
+        width: 100px;
+    }
+}
+
 .section {
     overflow: hidden;
     max-height: 0;
     opacity: 0;
     animation: sectionGetHeight 1s .6s forwards alternate , sectionFadeIn .5s .8s forwards alternate;
+    background: rgba(255, 255, 255, 0.466);
+    width: 95%;
+    margin: 0 auto;
+    border-radius: $radius;
+
+    &__divider {
+        width: 0;
+        height: .5rem;
+        background-color: rgba(128, 128, 128, 0.096);
+        margin: 5rem auto 1rem auto;
+        border-radius: $radius;
+        animation: sectionDividerGetHight .2s .2s forwards alternate cubic-bezier(0.23, 1, 0.320, 1);
+    }
 }

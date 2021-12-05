@@ -1,9 +1,9 @@
 .tab {
-    background-color: lighten($color: $primary, $amount: 35);
+    background-color: $darkGrey;
     border-radius: $radius;
     min-height: 30rem;
     padding: 1rem;
-    width: 20rem;
+    min-width: 20rem;
     display: flex;
     flex-direction: column;
 
@@ -14,7 +14,6 @@
 
     &__headerPanel {
         display: flex;
-        align-items: center;
         margin-bottom: 1.5rem;
 
         input {
@@ -26,28 +25,31 @@
             width: 100%;
             height: 3rem;
             padding: 1rem;
-            background-color: lighten($color: $primary, $amount: 25);
+            background-color: lighten($color: $primary, $amount: 32);
             margin-right: .5rem;
             border-radius: $radius;
             direction: rtl;
+            color: $darkText;
+
+            &::placeholder {
+                color: $darkText;
+            }
         }
 
         div {
-            background-color: lighten($color: $primary, $amount: 25);
+            background-color: lighten($color: $primary, $amount: 32);
             display: flex;
-            font-size: 1.3rem;
+            height: 100%;
+            font-size: .8rem;
+            height: 49px;
             font-weight: 600;
             border-radius: $radius;
-            color: white;
+            color: $darkText;
             padding: .5rem;
             width: 3rem;
             align-items: center;
             justify-content: center;
         }
-    }
-
-    &__optionDirectory {
-
     }
 
     &__createNewOption {
@@ -59,16 +61,14 @@
             text-align: center;
             padding: .5rem;
             cursor: pointer;
-            background-color: $darkGrey;
+            background-color: transparent;
             border: none;
-            border-radius: $radius;
             color: white;
-            height: 4rem;
         }
         svg {
             margin-right: .5rem;
-            width: 1rem;
-            height: 1rem;
+            width: .8rem;
+            height: .8rem;
             fill: white;
         }
     }

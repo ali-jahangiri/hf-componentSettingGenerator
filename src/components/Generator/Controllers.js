@@ -6,10 +6,10 @@ const Controllers = ({
 }) => {
     return (
         <div className="generator__controllers">
-            <div>
+            <div className="generator__controllers__save">
                 <p>ذخیره</p>
             </div>
-            <div>
+            <div className="generator__controllers__draft">
                 <p>پیش نویس</p>
                 {/* <DraftIcon /> */}
             </div>
