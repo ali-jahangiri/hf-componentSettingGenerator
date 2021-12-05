@@ -29,6 +29,11 @@
                 backdrop-filter: blur(6px);
             }
 
+            &--hide {
+                transition: .5s cubic-bezier(0.645, 0.045, 0.355, 1);
+                top: -100%;
+            }
+
         }
 
         &__intro {

@@ -14,6 +14,7 @@ const Generator = () => {
     const [store, setStore] = useState({ sections : [{ tabs : [{ id : idGenerator() , name : "" , options : [] }] , id : idGenerator() , name : ""}] , primary: developerDefaultSet.primaryList.map(el => ({ name : el.key , value : "" })) });
     const containerRef = useRef();
     const [headerPos, setHeaderPos] = useState('top');
+    const [isSomeSettingDrawerOpen, setIsSomeSettingDrawerOpen] = useState(false);
 
 
     useLayoutEffect(function windowsScrollHandler() {
@@ -77,12 +78,10 @@ const Generator = () => {
     }
     
 
-    console.log(store);
-
     return (
         <div ref={containerRef} className="generator">
             <div className="generator__header">
-                <div className={`generator__header__innerContainer ${headerPos === "scrolled" ? "generator__header__innerContainer--scrolled" : ""}`}>
+                <div className={`generator__header__innerContainer ${isSomeSettingDrawerOpen ? "generator__header__innerContainer--hide" : ""} ${headerPos === "scrolled" ? "generator__header__innerContainer--scrolled" : ""}`}>
                     <Controllers />
                     <div className="generator__header__intro">
                         <p>ساخت تنظیمات جدید</p>
@@ -117,7 +116,7 @@ const Generator = () => {
                             {
                             !section.tabs.length 
                                 ? <EmptyCanvas onClick={() => createNewColumnHandler(section.id)} /> 
-                                : section.tabs.map((el , i) => <Tab changeDetailsHandler={(...rest) => changeTabDetailsHandler(section.id , ...rest)} index={i + 1} key={i} {...el} />)
+                                : section.tabs.map((el , i) => <Tab onDrawerStatusChange={setIsSomeSettingDrawerOpen} changeDetailsHandler={(...rest) => changeTabDetailsHandler(section.id , ...rest)} index={i + 1} key={i} {...el} />)
                             }
                         </div>
                         {

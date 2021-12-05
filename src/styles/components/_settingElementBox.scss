@@ -1,0 +1,67 @@
+.settingElementBox {
+    background-color: lightgrey;
+    flex: 1 0 20rem;
+    height: 15rem;
+    margin: 1rem 1rem;
+    border-radius: $radius;
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    cursor: pointer;
+
+
+    &__iconBox {
+        margin-left: 1rem;
+        margin-top: 1rem;
+        margin-bottom: -1rem;
+        
+        svg {
+            width: 1.6rem;
+        }
+    }
+
+    &__name {
+        text-align: right;
+        &--full {
+            p {
+                &:first-child {
+                    font-size: 1.5rem;
+                }
+
+                &:last-child {
+                    span {
+                        &:last-child {
+                            font-size: .9rem;
+                            margin-left: .5rem;
+                            opacity: .8;
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+
+    &__clickIcon {
+        svg {
+            width: 1.6rem;
+            height: 1.6rem;
+            transition: .3s;
+            margin-left: 1rem;
+        }
+    }
+
+    
+
+
+    &:hover {
+        .settingElementBox {
+            &__clickIcon {
+                svg {
+                    transform: translateX(-15px);
+                }
+            }
+        }
+    }
+}
