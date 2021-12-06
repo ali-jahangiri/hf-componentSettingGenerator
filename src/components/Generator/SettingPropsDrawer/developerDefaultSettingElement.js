@@ -45,7 +45,7 @@ export const developerDefaultSettingElement = [
     },
     {
         name: 'dropdown',
-        value: 'slide',
+        value: '',
         config: {
             options:[
                 {
@@ -130,7 +130,6 @@ export const developerDefaultSettingElement = [
     },
     {
         name: 'border',
-        default: true, // Boolean
         value: {width: 0, radius: '8px 8px 8px 8px', style: 'solid', color: 'rgba(0,0,0,0)'},
         config: {
             defaultValue: {width: 0, radius: '8px 8px 8px 8px', style: 'solid', color: 'rgba(0,0,0,0)'},
@@ -154,18 +153,20 @@ const ProductIcon = () => <svg xmlns="http://www.w3.org/2000/svg" id="Outline" v
 const BorderIcon = () => <svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-name="Layer 1" viewBox="0 0 24 24"><path d="M24,18v1a5.006,5.006,0,0,1-5,5H18a1,1,0,0,1,0-2h1a3,3,0,0,0,3-3V18a1,1,0,0,1,2,0ZM19,0H18a1,1,0,0,0,0,2h1a3,3,0,0,1,3,3V6a1,1,0,0,0,2,0V5A5.006,5.006,0,0,0,19,0Zm4,9a1,1,0,0,0-1,1v4a1,1,0,0,0,2,0V10A1,1,0,0,0,23,9ZM6,22H5a3,3,0,0,1-3-3V18a1,1,0,0,0-2,0v1a5.006,5.006,0,0,0,5,5H6a1,1,0,0,0,0-2ZM6,0H5A5.006,5.006,0,0,0,0,5V6A1,1,0,0,0,2,6V5A3,3,0,0,1,5,2H6A1,1,0,0,0,6,0ZM1,15a1,1,0,0,0,1-1V10a1,1,0,0,0-2,0v4A1,1,0,0,0,1,15ZM10,2h3.932a1,1,0,0,0,0-2H10a1,1,0,0,0,0,2Zm4,20H10a1,1,0,0,0,0,2h4a1,1,0,0,0,0-2Z"/></svg>
 const ShadowIcon = () => <svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-name="Layer 1" viewBox="0 0 24 24"><path d="M15,20H5a5.006,5.006,0,0,1-5-5V5A5.006,5.006,0,0,1,5,0H15a5.006,5.006,0,0,1,5,5V15A5.006,5.006,0,0,1,15,20ZM5,2A3,3,0,0,0,2,5V15a3,3,0,0,0,3,3H15a3,3,0,0,0,3-3V5a3,3,0,0,0-3-3ZM24,19V6a1,1,0,0,0-2,0V19a3,3,0,0,1-3,3H6a1,1,0,0,0,0,2H19A5.006,5.006,0,0,0,24,19Z"/></svg>
 const ListIcon = () => <svg xmlns="http://www.w3.org/2000/svg" id="Outline" viewBox="0 0 24 24"><title>76 sort collection</title><path d="M7,0H4A4,4,0,0,0,0,4V7a4,4,0,0,0,4,4H7a4,4,0,0,0,4-4V4A4,4,0,0,0,7,0ZM9,7A2,2,0,0,1,7,9H4A2,2,0,0,1,2,7V4A2,2,0,0,1,4,2H7A2,2,0,0,1,9,4Z"/><path d="M7,13H4a4,4,0,0,0-4,4v3a4,4,0,0,0,4,4H7a4,4,0,0,0,4-4V17A4,4,0,0,0,7,13Zm2,7a2,2,0,0,1-2,2H4a2,2,0,0,1-2-2V17a2,2,0,0,1,2-2H7a2,2,0,0,1,2,2Z"/><path d="M22.293,19.049,20,21.339V2.633l2.293,2.29a1,1,0,1,0,1.414-1.415L21.12.925a3,3,0,0,0-4.24,0L14.293,3.508a1,1,0,1,0,1.414,1.415L18,2.633V21.339l-2.293-2.29a1,1,0,1,0-1.414,1.415l2.587,2.583a3,3,0,0,0,4.24,0l2.587-2.583a1,1,0,1,0-1.414-1.415Z"/></svg>
+const TextShadowIcon = () => <svg xmlns="http://www.w3.org/2000/svg" id="Layer_1" data-name="Layer 1" viewBox="0 0 24 24"><path d="M19,0H5A5.006,5.006,0,0,0,0,5V19a5.006,5.006,0,0,0,5,5H19a5.006,5.006,0,0,0,5-5V5A5.006,5.006,0,0,0,19,0Zm3,19a3,3,0,0,1-3,3H5a3,3,0,0,1-3-3V5A3,3,0,0,1,5,2H19a3,3,0,0,1,3,3ZM18,9a1,1,0,0,1-2,0,1,1,0,0,0-1-1H13v8h1a1,1,0,0,1,0,2H10a1,1,0,0,1,0-2h1V8H9A1,1,0,0,0,8,9,1,1,0,0,1,6,9,3,3,0,0,1,9,6h6A3,3,0,0,1,18,9Z"/></svg>;
+const BackgroundIcon = () => <svg xmlns="http://www.w3.org/2000/svg" id="Outline" viewBox="0 0 24 24"><title>102 pixabay</title><path d="M2,11H13a2,2,0,0,0,2-2V2a2,2,0,0,0-2-2H2A2,2,0,0,0,0,2V9A2,2,0,0,0,2,11ZM2,2H13V9H2Z"/><path d="M22,0H19a2,2,0,0,0-2,2V9a2,2,0,0,0,2,2h3a2,2,0,0,0,2-2V2A2,2,0,0,0,22,0Zm0,9H19V2h3Z"/><path d="M5,13H2a2,2,0,0,0-2,2v7a2,2,0,0,0,2,2H5a2,2,0,0,0,2-2V15A2,2,0,0,0,5,13Zm0,9H2V15H5Z"/><path d="M22,13H11a2,2,0,0,0-2,2v7a2,2,0,0,0,2,2H22a2,2,0,0,0,2-2V15A2,2,0,0,0,22,13Zm0,9H11V15H22Z"/></svg>
 
 export const elementAdditionalProp = {
     "box-shadow" : {
-        color : "",
+        color : "#C36A2D",
         icon : <ShadowIcon />   
     },
     "dynamic-list" : {
-        color : "",
+        color : "#97BFB4",
         icon : <ListIcon />
     },
     dropdown : {
-        color : "",
+        color : "#700B97",
         icon : <DropDown />
     },
     text : {
@@ -173,7 +174,7 @@ export const elementAdditionalProp = {
         icon : <TextIcon />
     },
     src : {
-        color : "#D0CAB2",
+        color : "#e0bf3c",
         icon : <PicIcon />
     },
     "carousel-items" : {
@@ -181,19 +182,27 @@ export const elementAdditionalProp = {
         icon : <GalleryIcon />
     },
     colorpicker : {
-        color : "",
+        color : "#116530",
         icon : <PickerIcon />
     },
     border : {
-        color : "",
+        color : "#212121",
         icon : <BorderIcon />
     },
     "product-collection" : {
-        color : "",
+        color : "#630000",
         icon : <ProductIcon />
     },
     spacing : {
-        color : "" ,
+        color : "#678983" ,
         icon : <SpaceIcon />
+    },
+    "text-shadow" : {
+        color :"#B85252",
+        icon : <TextShadowIcon />
+    },
+    "background-image" : {
+        color : "#FFC286",
+        icon : <BackgroundIcon />
     }
 }

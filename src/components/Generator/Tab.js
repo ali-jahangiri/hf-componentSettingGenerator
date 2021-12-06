@@ -45,7 +45,13 @@ const Tab = ({
                     </button>
                 </div>
             </div>
-            <SettingPropsDrawer closeHandler={closeSettingPropsHandler} visible={isDrawerOpen} />
+            {
+                isDrawerOpen && 
+                <SettingPropsDrawer
+                    createNewOption={createNewOption}
+                    closeHandler={closeSettingPropsHandler}
+                    visible={isDrawerOpen} />
+            }
         </React.Fragment>
     )
 }

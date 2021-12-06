@@ -77,6 +77,20 @@ const Generator = () => {
         }))
     }
     
+    const injectNewSettingToTabOptionHandler = (sectionId , tabId , newSettingStoreForInject) => {
+        setStore(prev => ({
+            ...prev ,
+            sections : prev.sections.map(section => section.id === sectionId ? ({
+                ...section,
+                tabs : section.tabs.map(el => el.id === tabId ? ({
+                    ...el,
+                    options : [...el.options , newSettingStoreForInject]
+                }) : el)
+            }) : section)
+        }))
+    }
+
+    console.log(store , 'store');
 
     return (
         <div ref={containerRef} className="generator">
@@ -116,7 +130,10 @@ const Generator = () => {
                             {
                             !section.tabs.length 
                                 ? <EmptyCanvas onClick={() => createNewColumnHandler(section.id)} /> 
-                                : section.tabs.map((el , i) => <Tab onDrawerStatusChange={setIsSomeSettingDrawerOpen} changeDetailsHandler={(...rest) => changeTabDetailsHandler(section.id , ...rest)} index={i + 1} key={i} {...el} />)
+                                : section.tabs.map((el , i) => <Tab 
+                                                                    createNewOption={newSettingStoreForInject => injectNewSettingToTabOptionHandler(section.id , el.id , newSettingStoreForInject)}
+                                                                    onDrawerStatusChange={setIsSomeSettingDrawerOpen} 
+                                                                    changeDetailsHandler={(...rest) => changeTabDetailsHandler(section.id , ...rest)} index={i + 1} key={i} {...el} />)
                             }
                         </div>
                         {

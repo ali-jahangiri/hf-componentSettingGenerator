@@ -1,5 +1,35 @@
+@keyframes initialSettingBoxFadeIn {
+    from {
+        opacity: 0;
+        transform: translateX(-5px);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+@keyframes unSelectionFadeOutEffect {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0;
+    }
+}
+
+
+@keyframes getCollapseInUnSelectedItem {
+    to {
+        margin: 0;
+        padding: 0;
+        flex: 0 0 0;
+    }
+}
+
 .settingElementBox {
-    background-color: lightgrey;
+    background-color: #ededed;
     flex: 1 0 20rem;
     height: 15rem;
     margin: 1rem 1rem;
@@ -9,20 +39,43 @@
     flex-direction: column;
     justify-content: space-between;
     cursor: pointer;
+    position: relative;
+    overflow: hidden;
+    animation: initialSettingBoxFadeIn .3s forwards alternate cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    opacity: 0;
+    transition: .3s;
 
+    &__fadeBul {
+        width: 5rem;
+        height: 5rem;
+        border-radius: 50%;
+        position: absolute;
+        left: -120px;
+        top: -90px;
+        transition: .3s;
+        opacity: .5;
+    }
 
     &__iconBox {
         margin-left: 1rem;
         margin-top: 1rem;
         margin-bottom: -1rem;
-        
+        position: relative;
         svg {
             width: 1.6rem;
+            opacity: .6;
+            transition: .3s;
         }
     }
 
     &__name {
         text-align: right;
+        transition: .3s;
+        position: absolute;
+        right: 15px;
+        top: 50%;
+        transform: translateY(-50%);
+
         &--full {
             p {
                 &:first-child {
@@ -52,6 +105,17 @@
         }
     }
 
+
+    &__forms {
+        max-height: 0;
+        overflow: hidden;
+        position: relative;
+        transition: .3s 2s;
+        background: #ffffffb0;
+        border-radius: $radius;
+        backdrop-filter: blur(10px);
+        
+    }
     
 
 
@@ -62,6 +126,66 @@
                     transform: translateX(-15px);
                 }
             }
+
+            &__iconBox {
+                svg {
+                    opacity: 1;
+                }
+            }
+
+            &__fadeBul {
+                opacity: 1;
+                left: -90px;
+            }
         }
+    }
+
+    &--selected {
+        cursor: default;
+        transition: .3s , height .3s 1.5s;
+        height: calc(100vh - 160px);
+
+
+        .settingElementBox {
+            
+            &__fadeBul {
+                opacity: .4 !important;
+                left: -90px;
+            }
+
+            &__iconBox {
+                svg {
+                    opacity: 1;
+                }
+            }
+
+            &__clickIcon {
+                svg {
+                    opacity: 0;
+                }
+            }
+
+            &__name {
+                transition-delay: 1.5s;
+                top: 50px;
+                right: 25px;
+            }
+
+            &__forms {
+                max-height: 50rem;
+                height: 100%;
+                margin-top: 1rem;
+                padding: 1.5rem;
+                opacity: 1;
+            }
+        }
+
+    }
+
+    &--getHide {
+        transition: .3s 1s !important;
+        opacity: 0;
+        animation: unSelectionFadeOutEffect .3s 0s forwards alternate !important;
+        animation: getCollapseInUnSelectedItem .5s .6s forwards alternate !important;
     }
 }

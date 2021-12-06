@@ -1,4 +1,4 @@
-import { useRef, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 
 const Input = ({
     value ,
@@ -10,17 +10,16 @@ const Input = ({
     const [isFocused, setIsFocused] = useState(false)
     const inputRef = useRef();
     
-    const onChangeHandler = ({ target : { value } }) => {
-        onChange(value)
-    }
+    
+    const onChangeHandler = ({ target : { value } }) => onChange(value)
 
+    const focusHandler = () => setIsFocused(true)
 
-    const focusHandler = () => {
-        setIsFocused(true)
-    }
+    useEffect(() => {
+        if(!value && !isFocused) setIsFocused(false)
+    } , [value, isFocused])
 
     const blurHandler = () => {
-        console.log(value);
         if(!value) setIsFocused(false);
     }
 
