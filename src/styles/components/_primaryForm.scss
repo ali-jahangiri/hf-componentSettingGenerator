@@ -1,0 +1,10 @@
+.primaryForm {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+
+    & > div {
+        flex: 1 0;
+        margin: 0 1rem;
+    }
+}

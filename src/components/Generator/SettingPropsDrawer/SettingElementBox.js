@@ -1,6 +1,7 @@
-import React from "react";
+import React, { useLayoutEffect, useState } from "react";
 import { elementAdditionalProp } from "./developerDefaultSettingElement";
 import ElementGenerator from "./ElementGenerator";
+import { selfClearTimeout } from "../../../utils"
 
 const RightIcon = () => <svg xmlns="http://www.w3.org/2000/svg" id="Outline" viewBox="0 0 24 24"><title>155 arrow left</title><path d="M.876,14.088l3.879,3.879a1,1,0,0,0,1.414,0h0a1,1,0,0,0,0-1.414L2.614,13,23,13a1,1,0,0,0,1-1h0a1,1,0,0,0-1-1L2.553,11,6.169,7.381a1,1,0,0,0,0-1.414h0a1,1,0,0,0-1.414,0L.875,9.846A3.007,3.007,0,0,0,.876,14.088Z"/></svg>
 
@@ -13,6 +14,16 @@ const SettingElementBox = ({
     settingStore,
     setSettingStore
 }) => {
+
+    const [shouldShowForms, setShouldShowForms] = useState(false);
+
+    useLayoutEffect(() => {
+        if(selectedSetting === identifier) {
+            selfClearTimeout(() => {
+                setShouldShowForms(true)
+            } , 1);
+        }
+    } , [identifier, selectedSetting])
     
     return (
         <div
@@ -42,7 +53,7 @@ const SettingElementBox = ({
                 <RightIcon />
             </div>
             {
-                selectedSetting === identifier && <div className="settingElementBox__forms">
+                selectedSetting === identifier && <div className={`settingElementBox__forms ${shouldShowForms ? "settingElementBox__forms--show" : ""}`}>
                     <ElementGenerator
                         setSettingStore={setSettingStore}
                         settingStore={settingStore}

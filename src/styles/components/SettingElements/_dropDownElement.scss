@@ -177,15 +177,4 @@
             opacity: 1;
         }
     }
-
-    &__primary {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-
-        & > div {
-            flex: 1;
-            margin: 0 1rem;
-        }
-    }
 }

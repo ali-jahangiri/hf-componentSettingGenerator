@@ -1,0 +1,186 @@
+.customColorPicker {
+    margin: 2rem 0;
+    display: flex;
+    align-items: center;
+    align-items: center;
+    overflow: hidden;
+
+    &__suggestBar {
+        display: flex;
+        align-items: center;
+        transition: .3s;
+        max-width: 500px;
+
+        & > div {
+            width: 2.5rem;
+            height: 2.5rem;
+            border-radius: $radius;
+            margin-right: 1rem;
+            cursor: pointer;
+            transition: .3s;
+        }
+    }
+
+
+    &__pickerPen {
+        width: 100%;
+        height: 6rem;
+        position: relative;
+        display: flex;
+
+        &__overlay {
+            position: absolute;
+            z-index: 999;
+            background-color: $darkText;
+            width: 100%;
+            left: 0;
+            top: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            color: white;
+            border-radius: $radius;
+            transition: .3s;
+            padding: 0 1rem;
+            height: 60%;
+            transform: translateY(-50%);
+
+
+            & > div {
+                display: flex;
+                align-items: center;
+                cursor: pointer;
+                
+                p {
+                    margin-right: .5rem;
+                }
+
+                div {
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    background-color: $colorText;
+                    border-radius: $radius;
+                    width: 2rem;
+                    height: 2rem;
+                }
+
+            }
+
+            svg {
+                width: 1rem;
+                height: 1rem;
+                fill: white;
+            }
+
+            
+            &--colorPicker , &--code {
+                top: 150%;
+            }
+
+        }
+    }
+
+    &__controller {
+        transition: .3s;
+        cursor: pointer;
+        flex: 0 0 0;
+        overflow: hidden;
+        opacity: 0;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        
+        svg {
+            width: 1rem;
+            height: 1rem;
+            margin-right: .5rem;
+        }
+
+        &--show {
+            transition: .3s .5s;
+            flex: 1 0 5rem;
+            opacity: 1;
+
+        }
+
+    }
+
+
+    &__libraryNode {
+        width: 90%;
+        margin: 0 auto;
+        padding-top: 1.5rem;
+
+        & > div {
+            height: 30px;
+            .hue-horizontal {
+                border-radius: $radius;
+
+                & div {
+                    &:last-child {
+                        width: 28px !important;
+                        height: 28px !important;
+                        border-radius: $radius !important;
+                        top: 50%;
+                        transform: translateY(-50%);
+                    }
+                }
+            }
+        }
+    }
+
+
+    &__hashColor {
+        position: relative;
+        width: 100%;
+        margin: auto 0 auto 1rem;
+
+        input {
+            border-radius: $radius;
+            outline: none;
+            border: none;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: $colorText;
+            padding-left: 3.5rem;
+            letter-spacing: 1px;
+            height: 3rem;
+            width: 100%;
+        }
+
+        span {
+            position: absolute;
+            left: 1.0rem;
+            top: 51%;
+            font-size: 1.2rem;
+            font-weight: 900;
+            color: grey;
+            transform: translateY(-50%);
+        }
+
+        div {
+            position: absolute;
+            right: 10px;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 2rem;
+            height: 2rem;
+            border-radius: $radius;
+        }
+    }
+
+
+    &--colorPicker , &--code{
+        .customColorPicker {
+
+            &__suggestBar {
+                max-width: 0;
+                transition: .3s .3s;
+                & > div {
+                    opacity: 0;
+                }
+            }
+        }
+    }
+}

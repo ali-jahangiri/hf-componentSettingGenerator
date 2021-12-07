@@ -1,0 +1,37 @@
+.boxShadow {
+
+    &__content {
+        margin-top: 2rem;
+        display: flex;
+    }
+    &__mainBox {
+        width: 70%;
+        & > div {
+            margin-left: 1rem;
+            border-radius: $radius;
+        }
+    }
+
+    &__interpolatorInput {
+        input {
+            width: 100%;
+            border-radius: $radius;
+            border: none;
+            padding: 1rem;
+            font-size: 1.1rem;
+            transition: .3s;
+            outline: none;
+        }
+
+        &--valid {
+
+            border: 2px solid green;
+        }
+
+        &--invalid {
+            input {
+                border: 2px solid red;
+            }
+        }
+    }
+}
