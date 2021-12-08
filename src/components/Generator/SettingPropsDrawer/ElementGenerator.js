@@ -11,11 +11,12 @@ const ElementGenerator = ({
     elementConfig ,
     setSettingStore,
     settingStore,
+    setIsValidInNested
 }) => {
     
     return (
         <div className="settingFormItemGenerator">
-            {elementClone({ settingStore , setSettingStore })[targetElement]}
+            {elementClone({ settingStore , setSettingStore , setIsValidInNested })[targetElement]}
         </div>
     )
 }

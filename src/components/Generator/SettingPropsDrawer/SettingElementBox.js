@@ -12,7 +12,8 @@ const SettingElementBox = ({
     index,
     selectedSetting,
     settingStore,
-    setSettingStore
+    setSettingStore,
+    setIsValidInNested,
 }) => {
 
     const [shouldShowForms, setShouldShowForms] = useState(false);
@@ -55,6 +56,7 @@ const SettingElementBox = ({
             {
                 selectedSetting === identifier && <div className={`settingElementBox__forms ${shouldShowForms ? "settingElementBox__forms--show" : ""}`}>
                     <ElementGenerator
+                        setIsValidInNested={setIsValidInNested}
                         setSettingStore={setSettingStore}
                         settingStore={settingStore}
                         elementConfig={config}

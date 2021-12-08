@@ -6,7 +6,7 @@ import ColorPicker from "./ColorPicker";
 import Input from "../../../Input";
 import RangeSlider from "../../../RangeSlider";
 
-const BoxShadow = ({ setSettingStore , settingStore }) => {
+const BoxShadow = ({ setSettingStore , settingStore , setIsValidInNested }) => {
     const [boxShadowPos, setBoxShadowPos] = useState({ x : 50 , y : 50 });
     const [boxShadowSpread, setBoxShadowSpread] = useState({ values : [0] });
     const [boxShadowBlur, setBoxShadowBlur] = useState({ values : [0] });
@@ -22,7 +22,7 @@ const BoxShadow = ({ setSettingStore , settingStore }) => {
         setInterpolatorValue(value)
         if(splittedValue.length === 5 && splittedValue.every(el => el !== "")) {
             const [color , y , x , blur , spread] = splittedValue;
-            if(!isNaN(y) && !isNaN(x) && !isNaN(blur) && !isNaN(spread)) {
+            if(!isNaN(y) && !isNaN(x) && !isNaN(blur) && !isNaN(spread) && color.startsWith("#")) {
                 setHaveValidInterpolatedValue(true);
                 setBoxShadowPos({ x : +x , y: +y });
                 setBoxShadowColor({ hex : color })
@@ -35,6 +35,11 @@ const BoxShadow = ({ setSettingStore , settingStore }) => {
             setHaveValidInterpolatedValue(false)
         }
     }
+
+    useEffect(function liftValidationStatusToParent() {
+        if(haveValidInterpolatedValue) setIsValidInNested(true)
+        else setIsValidInNested(false);
+    } , [haveValidInterpolatedValue])
 
     useEffect(() => {
         if(!userTouchInterpolatorForLastTime) {

@@ -22,6 +22,8 @@ const SettingPropsDrawer = ({
     const [isInTransition, setIsInTransition] = useState(false);
     const [shouldRenderOptions, setShouldRenderOptions] = useState(false);
     const [selectedSetting, setSelectedSetting] = useState(null);
+    const [isValidInNested, setIsValidInNested] = useState(true);
+
 
     const [settingStore, setSettingStore] = useState({});
 
@@ -60,7 +62,7 @@ const SettingPropsDrawer = ({
             ...settingStore,
             type : selectedSetting,
         })
-        closeHandler()
+        closeHandler();
     }
 
     return !shouldDrawerGetDestroyed ? <>
@@ -72,7 +74,7 @@ const SettingPropsDrawer = ({
                         <span>بستن</span>
                     </button>
                     {
-                        validationSettingStoreHandler(settingStore) && <button onClick={attachSettingToStoreHandler} className="settingPropsDrawer__header__controller__save">
+                        validationSettingStoreHandler(settingStore) && isValidInNested && <button onClick={attachSettingToStoreHandler} className="settingPropsDrawer__header__controller__save">
                             <SaveIcon />
                             <span>ایجاد</span>
                         </button>
@@ -85,6 +87,7 @@ const SettingPropsDrawer = ({
                     shouldRenderOptions && 
                     developerDefaultSettingElement
                         .map((settingElement , index) => <SettingElementBox
+                                                                setIsValidInNested={setIsValidInNested}
                                                                 settingStore={settingStore}
                                                                 setSettingStore={changeSettingStoreHandler}
                                                                 selectHandler={selectSettingHandler}
