@@ -1,7 +1,6 @@
 export const developerDefaultSettingElement = [
     {
         name: 'text', 
-        value: 'نمونه لینک',
         config: {
             defaultValue: 'نمونه لینک',
             type: 'input',
@@ -10,7 +9,6 @@ export const developerDefaultSettingElement = [
     },
     {
         name: 'box-shadow',
-        value: '0 0 0 0 rgba(0,0,0,0)',
         config: {
             defaultValue: '0 0 0 0 rgba(0,0,0,0)',
             type: 'box-shadow',
@@ -19,7 +17,6 @@ export const developerDefaultSettingElement = [
     },
     {
         name: 'src',
-        value: null,
         config: {
             defaultValue: null,
             type: 'upload',
@@ -28,10 +25,6 @@ export const developerDefaultSettingElement = [
     },
     {
         name: 'spacing',
-        value: {
-            padding: `0px 0px 0px 0px`,
-            margin: `0px 0px 0px 0px`
-        },
         config: {
             type: 'spacing',
             title: 'فاصله',
@@ -45,30 +38,8 @@ export const developerDefaultSettingElement = [
     },
     {
         name: 'dropdown',
-        value: '',
         config: {
-            options:[
-                {
-                    text: 'اسلاید',
-                    value: 'slide'
-                },
-                {
-                    text: 'محو شدن',
-                    value: 'fade'
-                },
-                {
-                    text: 'مکعب',
-                    value: 'cube'
-                },
-                {
-                    text: 'کاور',
-                    value: 'coverflow'
-                },
-                {
-                    text: 'چرخش',
-                    value: 'flip'
-                }
-            ],
+            options:[{ text : "" , value : "" }],
             type: 'dropdown',
             title: 'لیست بازشونده',
             defaultValue: 'slide',
@@ -76,7 +47,6 @@ export const developerDefaultSettingElement = [
     },
     {
         name: 'colorpicker',
-        value: '',
         config: {
             type: 'colorpicker',
             title: 'انتخاب کننده رنگ',
@@ -85,7 +55,6 @@ export const developerDefaultSettingElement = [
     },
     {
         name: 'dynamic-list',
-        value: '',
         config: {
             type: 'dynamic-list',
             defaultValue: '',
@@ -94,7 +63,6 @@ export const developerDefaultSettingElement = [
     },
     {
         name: 'product-collection',
-        value: '',
         config: {
             type: 'product-collection',
             defaultValue: '',
@@ -103,7 +71,6 @@ export const developerDefaultSettingElement = [
     },
     {
         name: 'carousel-items',
-        value: [],
         config: {
             defaultValue: [],
             type: 'carousel-upload',
@@ -112,7 +79,6 @@ export const developerDefaultSettingElement = [
     },
     {
         name: 'background-image',
-        value: `url() 100% 100% / 100% 100% no-repeat scroll`,
         config: {
             defaultValue: `url() 100% 100% / 100% 100% no-repeat scroll`,
             type: 'background-image',
@@ -121,7 +87,6 @@ export const developerDefaultSettingElement = [
     },
     {
         name: 'text-shadow',
-        value: '0 6px 12px rgba(0,0,0,0)',
         config: {
             defaultValue: '0 3px 6px rgba(0,0,0,0)',
             type: 'text-shadow',
@@ -130,7 +95,6 @@ export const developerDefaultSettingElement = [
     },
     {
         name: 'border',
-        value: {width: 0, radius: '8px 8px 8px 8px', style: 'solid', color: 'rgba(0,0,0,0)'},
         config: {
             defaultValue: {width: 0, radius: '8px 8px 8px 8px', style: 'solid', color: 'rgba(0,0,0,0)'},
             type: 'border',

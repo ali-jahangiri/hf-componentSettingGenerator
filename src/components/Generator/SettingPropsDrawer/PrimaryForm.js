@@ -1,28 +1,37 @@
 import Input from "../../Input";
 
-const PrimaryForm = ({ store , setStore , containerStyle = {} }) => {
+
+const itemsForMapping = [
+    {
+        label : "عبارت کلیدی",
+        key : "name"
+    },
+    {
+        label : "مقدار اولیه",
+        key : "defaultValue"
+    },
+    {
+        label : "عنوان",
+        key : "title"
+    },
+]
+
+const PrimaryForm = ({ store , setStore , containerStyle = {} , hideItems = [] }) => {
     return (
         <div style={containerStyle} className="primaryForm">
-            <div>
-                <Input 
-                    value={store["name"]} 
-                    label='عبارت کلیدی'
-                    inputStyle={{ backgroundColor : "transparent" }}
-                    onChange={value => setStore("name" , value)} />
-            </div>
-            <div>
-                <Input 
-                    value={store["defaultValue"]} 
-                    label='مقدار اولیه'
-                    inputStyle={{ backgroundColor : "transparent" }}
-                    onChange={value => setStore("defaultValue" , value)} />
-            </div>
-            <div>
-                <Input value={store["title"]} 
-                    label='عنوان'
-                    inputStyle={{ backgroundColor : "transparent" }}
-                    onChange={value => setStore("title" , value)} />
-            </div>
+            {
+                itemsForMapping
+                    .filter(item => !hideItems.includes(item.key))
+                    .map((primaryItem , index) => (
+                        <div key={index}>
+                            <Input 
+                                value={store[primaryItem.key]} 
+                                label={primaryItem.label}
+                                inputStyle={{ backgroundColor : "transparent" }}
+                                onChange={value => setStore(primaryItem.key , value)} />
+                        </div>
+                ))
+            }
         </div>
     )
 }

@@ -8,7 +8,6 @@ const elementClone = passedProps => ({
 
 const ElementGenerator = ({ 
     targetElement ,
-    elementConfig ,
     setSettingStore,
     settingStore,
     setIsValidInNested

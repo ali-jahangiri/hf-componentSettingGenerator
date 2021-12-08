@@ -21,7 +21,7 @@ const SettingPropsDrawer = ({
     const [shouldDrawerGetDestroyed, setShouldDrawerGetDestroyed] = useState(true);
     const [isInTransition, setIsInTransition] = useState(false);
     const [shouldRenderOptions, setShouldRenderOptions] = useState(false);
-    const [selectedSetting, setSelectedSetting] = useState(null);
+    const [selectedSettingType, setSelectedSettingType] = useState(null);
     const [isValidInNested, setIsValidInNested] = useState(true);
 
 
@@ -46,7 +46,7 @@ const SettingPropsDrawer = ({
 
 
     const selectSettingHandler = settingId => {
-        setSelectedSetting(settingId)
+        setSelectedSettingType(settingId)
     }
 
     const changeSettingStoreHandler = (key , value) => {
@@ -58,9 +58,14 @@ const SettingPropsDrawer = ({
 
 
     const attachSettingToStoreHandler = () => {
+        const { name , defaultValue , title } = settingStore;
         createNewOption({
-            ...settingStore,
-            type : selectedSetting,
+            name,
+            config : {
+                type : selectedSettingType,
+                defaultValue,
+                title
+            }
         })
         closeHandler();
     }
@@ -93,7 +98,7 @@ const SettingPropsDrawer = ({
                                                                 selectHandler={selectSettingHandler}
                                                                 key={index}
                                                                 index={index}
-                                                                selectedSetting={selectedSetting}
+                                                                selectedSetting={selectedSettingType}
                                                                 {...settingElement} />)
                 }
             </div>

@@ -1,10 +1,11 @@
 import HelperBox from "../HelperBox";
 import PrimaryForm from "../PrimaryForm";
 import Slider from 'react-input-slider';
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import ColorPicker from "./ColorPicker";
 import Input from "../../../Input";
 import RangeSlider from "../../../RangeSlider";
+import { debounce, hexToRgb, makeValidDefaultValueForShadowBoxElement } from "../../../../utils";
 
 const BoxShadow = ({ setSettingStore , settingStore , setIsValidInNested }) => {
     const [boxShadowPos, setBoxShadowPos] = useState({ x : 50 , y : 50 });
@@ -15,13 +16,12 @@ const BoxShadow = ({ setSettingStore , settingStore , setIsValidInNested }) => {
     const [haveValidInterpolatedValue, setHaveValidInterpolatedValue] = useState(false);
     const [userTouchInterpolatorForLastTime, setUserTouchInterpolatorForLastTime] = useState(false);
 
-
     const interpolateValueChangeHandler = (value = "") => {
         setUserTouchInterpolatorForLastTime(true)
-        const splittedValue = value.split(" ");
         setInterpolatorValue(value)
+        const splittedValue = value.split(" ");
         if(splittedValue.length === 5 && splittedValue.every(el => el !== "")) {
-            const [color , y , x , blur , spread] = splittedValue;
+            const [x , y , blur , spread , color] = splittedValue;
             if(!isNaN(y) && !isNaN(x) && !isNaN(blur) && !isNaN(spread) && color.startsWith("#")) {
                 setHaveValidInterpolatedValue(true);
                 setBoxShadowPos({ x : +x , y: +y });
@@ -37,21 +37,29 @@ const BoxShadow = ({ setSettingStore , settingStore , setIsValidInNested }) => {
     }
 
     useEffect(function liftValidationStatusToParent() {
-        if(haveValidInterpolatedValue) setIsValidInNested(true)
+        if(haveValidInterpolatedValue) setIsValidInNested(true);
         else setIsValidInNested(false);
     } , [haveValidInterpolatedValue])
 
-    useEffect(() => {
+    const debounceLifterHandler = useCallback(debounce(passedValue => {
+        setSettingStore('defaultValue' , makeValidDefaultValueForShadowBoxElement(passedValue))
+    } , 500) , []);
+
+    useEffect(function liftEndResultValueToParentSettingStore() {
+        if(haveValidInterpolatedValue) debounceLifterHandler(interpolatorValue)
+    } , [interpolatorValue , haveValidInterpolatedValue])
+
+    useEffect(function automaticSetInterpolatorValueHandler() {
         if(!userTouchInterpolatorForLastTime) {
             setUserTouchInterpolatorForLastTime(false);
-            setInterpolatorValue(`${boxShadowColor?.hex || "yourColor"} ${boxShadowPos.x - 50} ${boxShadowPos.y - 50} ${boxShadowBlur.values[0]} ${boxShadowSpread.values[0]}`)
+            setInterpolatorValue(`${boxShadowPos.x - 50} ${boxShadowPos.y - 50} ${boxShadowBlur.values[0]} ${boxShadowSpread.values[0]} ${boxShadowColor?.hex || "yourColor"}`)
         }
     } , [boxShadowPos , boxShadowColor , userTouchInterpolatorForLastTime , boxShadowBlur , boxShadowSpread])
 
     return (
         <div className="boxShadow">
             <div className="boxShadow__container">
-                <PrimaryForm setStore={setSettingStore} store={settingStore} />
+                <PrimaryForm hideItems={["defaultValue"]} setStore={setSettingStore} store={settingStore} />
                 <div className="boxShadow__content">
                     <div className="boxShadow__mainBox">
                     <div style={{ boxShadow :  `${boxShadowColor?.hex} ${boxShadowPos.x - 50}px ${boxShadowPos.y - 50}px ${boxShadowBlur.values[0]}px ${boxShadowSpread.values[0]}px` }}>
@@ -79,6 +87,7 @@ const BoxShadow = ({ setSettingStore , settingStore , setIsValidInNested }) => {
                             selected={boxShadowColor} 
                             selectHandler={color => {
                                 setBoxShadowColor(color);
+                                setHaveValidInterpolatedValue(true)
                                 setUserTouchInterpolatorForLastTime(false);
                         }} />
                         <RangeSlider
@@ -104,7 +113,7 @@ const BoxShadow = ({ setSettingStore , settingStore , setIsValidInNested }) => {
                                 isInvalid={!haveValidInterpolatedValue}
                                 isSuccess={haveValidInterpolatedValue}
                                 inputStyle={{ backgroundColor : "transparent" , textAlign : "left" , padding : ".5rem" , direction : "ltr" }}
-                                label="Interpolator"
+                                label="Interpolator as default value"
                                 value={interpolatorValue} 
                                 onChange={interpolateValueChangeHandler} />
                         </div>
@@ -114,7 +123,7 @@ const BoxShadow = ({ setSettingStore , settingStore , setIsValidInNested }) => {
                         title="تهیه سایه"
                         desc={<div >
                                 <span>به کمک ابزار مقابل میتوانید مقدار پیشفرض تنظیمات سایه را تهیه نمایید.فرمول</span>
-                                <code>Color - X coordinate - Y coordinate - Blur - Spread</code>
+                                <code>X coordinate - Y coordinate - Blur - Spread - Hex Color</code>
                                 <span>میباشد</span>
                         </div>} />
                 </div>
