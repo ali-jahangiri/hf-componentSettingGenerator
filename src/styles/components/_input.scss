@@ -49,4 +49,22 @@
             background-color: $primary;
         }
     }
+
+
+    &--success {
+        &::after {
+            background-color: $success;
+        }
+    }
+
+    &--invalid {
+        p {
+            color: $error;
+        }
+
+
+        &::after {
+            background-color: $error !important;
+        }
+    }
 }

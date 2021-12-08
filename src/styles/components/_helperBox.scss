@@ -5,11 +5,12 @@
     margin-top: 1rem;
 
     &__index {
-        width: 3rem;
-        height: 3rem;
+        width: 2rem;
+        height: 2rem;
         border-radius: $radius;
         background-color: $primary;
         margin-left: 1rem;
+        flex: 1 0 2rem;
     }
 
     &__title {

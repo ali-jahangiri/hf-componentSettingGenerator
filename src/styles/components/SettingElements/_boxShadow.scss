@@ -23,15 +23,15 @@
             outline: none;
         }
 
-        &--valid {
+        // &--valid {
 
-            border: 2px solid green;
-        }
+        //     border: 2px solid green;
+        // }
 
-        &--invalid {
-            input {
-                border: 2px solid red;
-            }
-        }
+        // &--invalid {
+        //     input {
+        //         border: 2px solid red;
+        //     }
+        // }
     }
 }
