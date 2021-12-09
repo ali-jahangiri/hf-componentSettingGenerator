@@ -43,3 +43,10 @@ export const makeValidDefaultValueForShadowBoxElement = interpolatedValue => {
     const manipulatedValueString = `${x}px ${y}px ${blur}px ${spread}px rgba(${r},${g},${b},1)`;
     return manipulatedValueString;
 }
+
+
+
+export const extractSpace = (spaceClone , passedUnit) => {
+    const unit = spaceClone;
+    return `${unit?.[`${passedUnit}T`] || 0}px ${unit?.[`${passedUnit}R`] || 0}px ${unit?.[`${passedUnit}B`] || 0}px ${unit?.[`${passedUnit}L`] || 0}px`
+}

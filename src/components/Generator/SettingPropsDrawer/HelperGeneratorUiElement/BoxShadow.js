@@ -5,7 +5,7 @@ import { useCallback, useEffect, useState } from "react";
 import ColorPicker from "./ColorPicker";
 import Input from "../../../Input";
 import RangeSlider from "../../../RangeSlider";
-import { debounce, hexToRgb, makeValidDefaultValueForShadowBoxElement } from "../../../../utils";
+import { debounce, makeValidDefaultValueForShadowBoxElement } from "../../../../utils";
 
 const BoxShadow = ({ setSettingStore , settingStore , setIsValidInNested }) => {
     const [boxShadowPos, setBoxShadowPos] = useState({ x : 50 , y : 50 });

@@ -57,6 +57,8 @@ const SettingPropsDrawer = ({
     }
 
 
+    console.log(settingStore , "settingStore");
+
     const attachSettingToStoreHandler = () => {
         const { name , defaultValue , title } = settingStore;
         createNewOption({
@@ -64,11 +66,14 @@ const SettingPropsDrawer = ({
             config : {
                 type : selectedSettingType,
                 defaultValue,
-                title
+                title,
+                ...(settingStore?.additionalConfig)
             }
         })
         closeHandler();
     }
+
+    
 
     return !shouldDrawerGetDestroyed ? <>
         <div className={`settingPropsDrawer ${isInTransition ? "settingPropsDrawer--transition" : ""}`}>
