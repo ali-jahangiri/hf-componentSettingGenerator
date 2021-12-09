@@ -9,12 +9,16 @@ const ColorPicker = ({ selectHandler , selected }) => {
     const [userDecide, setUserDecide] = useState(null);
     const [hashColor, setHashColor] = useState("");
 
+    console.log(selected);
+
     return (
         <div className={`customColorPicker customColorPicker--${userDecide}`}>
             <div className="customColorPicker__suggestBar">
                 {
                     colors.map((color , i) => (
-                        <div onClick={() => selectHandler({ hex : `#${color}` })} style={{ backgroundColor : `#${color}` }} key={i} />
+                        <div onClick={() => selectHandler({ hex : `#${color}` })} style={{ backgroundColor : `#${color}` }} key={i}>
+                            <span style={{ backgroundColor : `#${color}`, transform : selected?.hex === `#${color}` ? "scale(1.3)" : "scale(1)" }}/>
+                        </div>
                     ))
                 }
             </div>
