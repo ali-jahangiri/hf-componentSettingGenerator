@@ -1,4 +1,6 @@
-import { Border, BoxShadow, ColorPickerWrapper, DropDown, Input , Spacing, TextShadow } from "./HelperGeneratorUiElement";
+import { Border, BoxShadow, CarouselUploader, ColorPickerWrapper, DropDown, DynamicList, Input , Spacing, TextShadow, Uploader } from "./HelperGeneratorUiElement";
+import BackgroundImage from "./HelperGeneratorUiElement/BackgroundImage";
+import ProductCollection from "./HelperGeneratorUiElement/ProductCollection";
 
 const elementClone = passedProps => ({
     dropdown : <DropDown {...passedProps} />,
@@ -7,7 +9,12 @@ const elementClone = passedProps => ({
     spacing : <Spacing {...passedProps} />,
     colorpicker : <ColorPickerWrapper {...passedProps} />,
     border : <Border {...passedProps} />,
-    "text-shadow" : <TextShadow {...passedProps} />
+    "text-shadow" : <TextShadow {...passedProps} />,
+    "background-image" : <BackgroundImage {...passedProps} />,
+    "carousel-upload" : <CarouselUploader {...passedProps} />,
+    "product-collection" : <ProductCollection {...passedProps} /> ,
+    upload : <Uploader {...passedProps} />,
+    "dynamic-list" : <DynamicList {...passedProps} />
 })
 
 const ElementGenerator = ({ 

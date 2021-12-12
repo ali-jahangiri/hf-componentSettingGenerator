@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { selfClearTimeout } from "../../../utils";
+import { idGenerator, selfClearTimeout } from "../../../utils";
 import { developerDefaultSettingElement } from "./developerDefaultSettingElement";
 import SettingElementBox from "./SettingElementBox";
 
@@ -17,15 +17,16 @@ const SettingPropsDrawer = ({
     closeHandler,
     visible,
     createNewOption,
+    selectedSettingType,
+    setSelectedSettingType,
+    settingStore,
+    setSettingStore,
 }) => {
     const [shouldDrawerGetDestroyed, setShouldDrawerGetDestroyed] = useState(true);
     const [isInTransition, setIsInTransition] = useState(false);
     const [shouldRenderOptions, setShouldRenderOptions] = useState(false);
-    const [selectedSettingType, setSelectedSettingType] = useState(null);
     const [isValidInNested, setIsValidInNested] = useState(true);
 
-
-    const [settingStore, setSettingStore] = useState({});
 
     
     useEffect(function initialAnimationHandler() {
@@ -56,13 +57,11 @@ const SettingPropsDrawer = ({
         }))
     }
 
-
-    console.log(settingStore , "settingStore");
-
     const attachSettingToStoreHandler = () => {
         const { name , defaultValue , title } = settingStore;
         createNewOption({
             name,
+            id: idGenerator(),
             config : {
                 type : selectedSettingType,
                 defaultValue,

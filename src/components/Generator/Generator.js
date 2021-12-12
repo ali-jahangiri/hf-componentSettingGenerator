@@ -90,7 +90,19 @@ const Generator = () => {
         }))
     }
 
-    console.log(store , 'store');
+
+    const removeTabSetting = (sectionId , tabId , optionId) => {
+        setStore(prev => ({
+            ...prev,
+            sections : prev.sections.map(section => section.id === sectionId ? ({
+                ...section,
+                tabs : section.tabs.map(tab => tab.id === tabId ? ({
+                    ...tab,
+                    options : tab.options.filter(option => option.id !== optionId)
+                }) : tab)
+            }) : section)
+        }))
+    }
 
     return (
         <div ref={containerRef} className="generator">
@@ -130,10 +142,14 @@ const Generator = () => {
                             {
                             !section.tabs.length 
                                 ? <EmptyCanvas onClick={() => createNewColumnHandler(section.id)} /> 
-                                : section.tabs.map((el , i) => <Tab 
+                                : section.tabs.map((el , i) => <Tab
+                                                                    removeOption={settingId => removeTabSetting(section.id , el.id , settingId)}
                                                                     createNewOption={newSettingStoreForInject => injectNewSettingToTabOptionHandler(section.id , el.id , newSettingStoreForInject)}
                                                                     onDrawerStatusChange={setIsSomeSettingDrawerOpen} 
-                                                                    changeDetailsHandler={(...rest) => changeTabDetailsHandler(section.id , ...rest)} index={i + 1} key={i} {...el} />)
+                                                                    changeDetailsHandler={(...rest) => changeTabDetailsHandler(section.id , ...rest)} 
+                                                                    index={i + 1} 
+                                                                    key={i} 
+                                                                    {...el} />)
                             }
                         </div>
                         {

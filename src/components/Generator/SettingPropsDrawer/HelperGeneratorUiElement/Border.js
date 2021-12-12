@@ -79,7 +79,6 @@ const Border = ({ setSettingStore , settingStore }) => {
     const [radiusClone, setRadiusClone] = useState({});
     const [borderSettingClone, setBorderSettingClone] = useState({ color : "" , width : 0 , style : "solid" });
     const [enableStyle, setEnableStyle] = useState({ width : true , color : true , radius : true , style : true })
-    const isInInitialRender = useRef(true);
 
     const changeRadiusHandler = (dir , value) => {
         setRadiusClone(prev => ({
