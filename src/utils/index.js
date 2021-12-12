@@ -59,3 +59,15 @@ export const borderRadiusGenerator = clone => {
 export const borderGenerator = clone => {
     return `${clone?.width || 0}px ${clone?.type || "solid"} ${clone?.color?.hex}`
 }
+
+
+
+export const textShadowGenerator = clone => {
+    return `${clone.x || 0}px ${clone.y || 0}px ${clone.blur?.[0] || 0}px ${clone.color?.hex ? rgbaStringConvertor(clone.color?.hex): clone.color}`
+}
+
+
+export const rgbaStringConvertor = (hex) => {
+    const { r , g , b } = hexToRgb(hex)
+    return `rgba(${r || 0},${g || 0},${b || 0},1)`
+}

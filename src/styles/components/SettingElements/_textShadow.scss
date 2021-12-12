@@ -1,0 +1,17 @@
+.textShadow {
+
+    &__container {
+        display: flex;
+    }
+
+    &__mainContent {
+        width: 70%;
+        margin-top: 2rem;
+        padding: 0 2rem;
+    }
+
+    &__previewText {
+        font-size: 2rem;
+        font-weight: 500;
+    }
+}

@@ -12,13 +12,13 @@ const RangeSlider = ({
 
     const checkValueStatusHandler = () => {
         const enteredValue = value.values[0];
-        if(enteredValue > 100) return (
+        if(enteredValue > max) return (
             <div>
                 <span>{">"}</span>
                 <span>بزرگتر از حداکثر</span>
             </div>
         );
-        else if(enteredValue < 0) return (
+        else if(enteredValue < min) return (
             <div>
                 <span>{"<"}</span>
                 <span>کوچکتر از حداقل</span>
