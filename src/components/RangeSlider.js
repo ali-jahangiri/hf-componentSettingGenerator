@@ -4,7 +4,9 @@ import { Range } from "react-range";
 const RangeSlider = ({
     label , 
     value , 
-    onChange
+    onChange,
+    min = 0,
+    max = 100
 }) => {
     const [grabbed, setGrabbed] = useState(false);
 
@@ -37,8 +39,8 @@ const RangeSlider = ({
             </div>
             <Range
                 step={1}
-                min={0}
-                max={100}
+                min={min}
+                max={max}
                 onFinalChange={() => setGrabbed(false)}
                 values={value.values}
                 onChange={(values) => {

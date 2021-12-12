@@ -50,3 +50,12 @@ export const extractSpace = (spaceClone , passedUnit) => {
     const unit = spaceClone;
     return `${unit?.[`${passedUnit}T`] || 0}px ${unit?.[`${passedUnit}R`] || 0}px ${unit?.[`${passedUnit}B`] || 0}px ${unit?.[`${passedUnit}L`] || 0}px`
 }
+
+export const borderRadiusGenerator = clone => {
+    return `${clone?.TL || 0}px ${clone?.TR || 0}px ${clone?.BR || 0}px ${clone?.BL || 0}px`
+}
+
+
+export const borderGenerator = clone => {
+    return `${clone?.width || 0}px ${clone?.type || "solid"} ${clone?.color?.hex}`
+}

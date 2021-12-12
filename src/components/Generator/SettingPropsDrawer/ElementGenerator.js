@@ -1,11 +1,12 @@
-import { BoxShadow, ColorPickerWrapper, DropDown, Input , Spacing } from "./HelperGeneratorUiElement";
+import { Border, BoxShadow, ColorPickerWrapper, DropDown, Input , Spacing } from "./HelperGeneratorUiElement";
 
 const elementClone = passedProps => ({
     dropdown : <DropDown {...passedProps} />,
     input : <Input {...passedProps} />,
     'box-shadow' : <BoxShadow {...passedProps} />,
     spacing : <Spacing {...passedProps} />,
-    colorpicker : <ColorPickerWrapper {...passedProps} />
+    colorpicker : <ColorPickerWrapper {...passedProps} />,
+    border : <Border {...passedProps} />
 })
 
 const ElementGenerator = ({ 

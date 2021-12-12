@@ -9,8 +9,6 @@ const ColorPicker = ({ selectHandler , selected }) => {
     const [userDecide, setUserDecide] = useState(null);
     const [hashColor, setHashColor] = useState("");
 
-    console.log(selected);
-
     return (
         <div className={`customColorPicker customColorPicker--${userDecide}`}>
             <div className="customColorPicker__suggestBar">

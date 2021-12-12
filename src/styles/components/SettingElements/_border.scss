@@ -1,0 +1,71 @@
+.border {
+    &__container {
+        margin-top: 3rem;
+        display: flex;
+
+        & > div {
+            width: 50%;
+        }
+    }
+
+
+    &__enableContainer {
+        width: 100%;
+        height: 100%;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+    }
+
+    &__enableItem {
+        width: 7rem;
+        margin: 0 .5rem;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 4rem;
+        cursor: pointer;
+        border-radius: $radius;
+        transition: .3s;
+        background-color: lighten($color: $primary, $amount: 20);
+        color: white;
+        user-select: none;
+
+        &--disable {
+            background-color: $colorText;
+            transform: scale(.9);
+            opacity: .5;
+        }
+    }
+
+    &__mainContent {
+        margin: 0 5rem;
+        background-color: $darkGrey;
+        height: 20rem;
+        position: relative;
+        transition: .2s cubic-bezier(0.165, 0.84, 0.44, 1);
+    }
+
+
+    &__radiusPerfectValue {
+        position: absolute;
+
+        p {
+            span {
+                font-size: .6rem;
+                opacity: .5;
+                margin-left: .1rem;
+            }
+        }
+    }
+
+    &__radiusContainer {
+        position: absolute;
+        transform-origin: top left;
+
+        .css-1mf1thy-Slider , .css-1lqppiu-Slider {
+            background-color: transparent;
+        }
+    }
+}
