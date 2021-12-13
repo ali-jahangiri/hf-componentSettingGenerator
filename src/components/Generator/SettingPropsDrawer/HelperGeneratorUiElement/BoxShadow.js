@@ -5,7 +5,7 @@ import { useCallback, useEffect, useState } from "react";
 import ColorPicker from "./ColorPicker";
 import Input from "../../../Input";
 import RangeSlider from "../../../RangeSlider";
-import { debounce, makeValidDefaultValueForShadowBoxElement } from "../../../../utils";
+import { debounce, makeValidDefaultValueForShadowBoxElement, removePxFormString, rgbToHex } from "../../../../utils";
 
 const BoxShadow = ({ setSettingStore , settingStore , setIsValidInNested }) => {
     const [boxShadowPos, setBoxShadowPos] = useState({ x : 50 , y : 50 });
@@ -16,6 +16,17 @@ const BoxShadow = ({ setSettingStore , settingStore , setIsValidInNested }) => {
     const [haveValidInterpolatedValue, setHaveValidInterpolatedValue] = useState(false);
     const [userTouchInterpolatorForLastTime, setUserTouchInterpolatorForLastTime] = useState(false);
 
+    useEffect(function setRecoverStoreHandlerInEditMode() {
+        if(settingStore?.defaultValue) {
+            const [x , y , blur , spread , color] = settingStore.defaultValue.split(" ");
+            setBoxShadowPos({ x : removePxFormString(x) , y: removePxFormString(y) });
+            setBoxShadowColor({ hex : rgbToHex(color) })
+            setBoxShadowBlur({ values : [Number(removePxFormString(blur))] });
+            setBoxShadowSpread({ values : [Number(removePxFormString(spread))] });
+        }
+    } , [])
+
+    
     const interpolateValueChangeHandler = (value = "") => {
         setUserTouchInterpolatorForLastTime(true)
         setInterpolatorValue(value)

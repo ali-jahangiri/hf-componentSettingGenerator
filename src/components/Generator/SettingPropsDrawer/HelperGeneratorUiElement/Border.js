@@ -1,6 +1,6 @@
 import React, { useEffect, useRef, useState } from "react";
 import Slider from 'react-input-slider';
-import { borderGenerator, borderRadiusGenerator, hexToRgb } from "../../../../utils";
+import { borderGenerator, borderRadiusGenerator, hexToRgb, removePxFormString, rgbToHex } from "../../../../utils";
 import RangeSlider from "../../../RangeSlider";
 import SelectBox from "../../../SelectBox";
 import HelperBox from "../HelperBox";
@@ -79,6 +79,7 @@ const Border = ({ setSettingStore , settingStore }) => {
     const [radiusClone, setRadiusClone] = useState({});
     const [borderSettingClone, setBorderSettingClone] = useState({ color : "" , width : 0 , style : "solid" });
     const [enableStyle, setEnableStyle] = useState({ width : true , color : true , radius : true , style : true })
+    const [isInInitial, setIsInInitial] = useState(true);
 
     const changeRadiusHandler = (dir , value) => {
         setRadiusClone(prev => ({
@@ -94,19 +95,46 @@ const Border = ({ setSettingStore , settingStore }) => {
         }))
     }
 
-    useEffect(function liftDefaultValueToParent() {
-        const color = (() => {
-            const { r , g , b } = borderSettingClone.color ? hexToRgb(borderSettingClone.color.hex) : { r : 0 , g : 0 , b : 0 };
-            return `rgba(${r} , ${g} , ${b} , 1)`
-        })();
-        setSettingStore('defaultValue' , {
-            ...borderSettingClone,
-            radius : borderRadiusGenerator(radiusClone),
-            color,
-        });
-        setSettingStore("additionalConfig" , enableStyle);
 
-    } , [borderSettingClone , radiusClone])
+    useEffect(function setRecoverStoreHandlerInEditMode() {
+        if(settingStore?.defaultValue) {
+            const { color , width , style , radius } = settingStore.defaultValue;
+
+            setBorderSettingClone({
+                color : { hex : rgbToHex(color) },
+                width,
+                style,
+            });
+
+            setEnableStyle(settingStore.additionalConfig);
+
+            const baseRadiusObject = {};
+            radius.split(" ").forEach((el , index) => {
+                baseRadiusObject[radiusList[index].label] = removePxFormString(el);
+            })
+            setRadiusClone(baseRadiusObject)
+        }
+
+        setIsInInitial(false);
+    } , [])
+
+
+    useEffect(function liftDefaultValueToParent() {
+        if(!isInInitial) {
+            const color = (() => {
+                console.log(hexToRgb(borderSettingClone.color.hex) , 'probke,m');
+                const { r , g , b } = borderSettingClone.color ? hexToRgb(borderSettingClone.color.hex) : { r : 0 , g : 0 , b : 0 };
+                return `rgba(${r} , ${g} , ${b} , 1)`
+            })();
+            setSettingStore('defaultValue' , {
+                ...borderSettingClone,
+                radius : borderRadiusGenerator(radiusClone),
+                color,
+            });
+            setSettingStore("additionalConfig" , enableStyle);
+        }
+
+    } , [borderSettingClone , radiusClone, isInInitial])
 
 
     const changeEnableStatusHandler = (key) => {

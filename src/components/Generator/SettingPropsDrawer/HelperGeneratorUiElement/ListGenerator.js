@@ -25,7 +25,9 @@ const ListGenerator = ({ tempCreateItem , setTempCreateItem , createdOptions , s
 
 
     const deleteOptionHandler = optionValue => {
-        setParentStore("options" , createdOptions.filter(item => item[setterKeyAs.storeValueAs] !== optionValue))
+        setParentStore("additionalConfig" , {
+            options : createdOptions.filter(item => item[setterKeyAs.storeValueAs] !== optionValue)
+        })
     }
 
 
@@ -33,7 +35,9 @@ const ListGenerator = ({ tempCreateItem , setTempCreateItem , createdOptions , s
     const createNewItemHandler = () => {
         if(!isCreatorOpened) return setIsCreatorOpened(true);
         else if(tempCreateItem[setterKeyAs.storeKeyAs] && tempCreateItem[setterKeyAs.storeValueAs]){
-            setParentStore('options' , [...(createdOptions || []) , tempCreateItem]);
+            setParentStore('additionalConfig' , {
+                options : [...(createdOptions || []) , tempCreateItem]
+            });
         }
         setTempCreateItem(defaultResetter);
         setIsCreatorOpened(false);

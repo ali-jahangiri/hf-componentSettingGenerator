@@ -5,7 +5,7 @@ import Input from "../../components/Input";
 import TabHeader from "./TabHeader";
 import EmptyCanvas from "./EmptyCanvas";
 
-import { idGenerator, selfClearTimeout } from "../../utils";
+import { filterKeyFromObject, idGenerator, selfClearTimeout } from "../../utils";
 import Tab from "./Tab";
 import RowCreator from "./RowCreator";
 import Controllers from "./Controllers";
@@ -104,6 +104,37 @@ const Generator = () => {
         }))
     }
 
+    const editTabSettingHandler = (sectionId , newData) => {
+        const additionalToConfig = (() => {
+            if(newData?.additionalConfig) return newData.additionalConfig;
+            else return filterKeyFromObject(newData._config , ['defaultValue' , 'type' , 'title'])
+        })();
+
+        setStore(prev => ({
+            ...prev,
+            sections : prev.sections.map(section => section.id === sectionId ? ({
+                ...section,
+                tabs : section.tabs.map(tab => tab.options.some(option => option.id === newData.id) ? ({
+                    ...tab,
+                    options : tab.options.map(option => option.id === newData.id ? ({
+                        config : {
+                            type : option.config.type,
+                            defaultValue : newData.defaultValue,
+                            title : newData.title,
+                            ...(additionalToConfig)
+                        },
+                        name : newData.name,
+                        id : newData.id
+                    }) : option)
+                }) : tab)
+            }): section)
+        }));
+
+}
+
+
+    console.log(store);
+
     return (
         <div ref={containerRef} className="generator">
             <div className="generator__header">
@@ -143,6 +174,7 @@ const Generator = () => {
                             !section.tabs.length 
                                 ? <EmptyCanvas onClick={() => createNewColumnHandler(section.id)} /> 
                                 : section.tabs.map((el , i) => <Tab
+                                                                    editOption={newData => editTabSettingHandler(section.id , newData)}
                                                                     removeOption={settingId => removeTabSetting(section.id , el.id , settingId)}
                                                                     createNewOption={newSettingStoreForInject => injectNewSettingToTabOptionHandler(section.id , el.id , newSettingStoreForInject)}
                                                                     onDrawerStatusChange={setIsSomeSettingDrawerOpen} 

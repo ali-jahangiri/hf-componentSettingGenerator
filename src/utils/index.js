@@ -63,11 +63,30 @@ export const borderGenerator = clone => {
 
 
 export const textShadowGenerator = clone => {
-    return `${clone.x || 0}px ${clone.y || 0}px ${clone.blur?.[0] || 0}px ${clone.color?.hex ? rgbaStringConvertor(clone.color?.hex): clone.color}`
+    return `${clone.color?.hex ? rgbaStringConvertor(clone.color?.hex): clone.color} ${clone.x || 0}px ${clone.y || 0}px ${clone.blur?.[0] || 0}px `
 }
 
 
 export const rgbaStringConvertor = (hex) => {
     const { r , g , b } = hexToRgb(hex)
     return `rgba(${r || 0},${g || 0},${b || 0},1)`
+}
+
+
+export const removePxFormString = (string = '') => {
+    return Number(string.slice(0 , string.indexOf("px")))
+}
+
+export function rgbToHex(rgb) {
+    return '#' + rgb.match(/[0-9|.]+/g).map((x,i) => i === 3 ? parseInt(255 * parseFloat(x)).toString(16) : parseInt(x).toString(16)).join('')
+}
+
+
+
+export const filterKeyFromObject = (target = {} , excludeList = []) => {
+    const base = {};
+    Object.entries(target).map(([key , value]) => {
+        if(!excludeList.includes(key)) base[key] = target[key]
+    })
+    return base;
 }

@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { textShadowGenerator } from "../../../../utils";
+import { hexToRgb, removePxFormString, rgbaStringConvertor, rgbToHex, textShadowGenerator } from "../../../../utils";
 import RangeSlider from "../../../RangeSlider";
 import PrimaryForm from "../PrimaryForm";
 import ColorPicker from "./ColorPicker";
@@ -19,9 +19,25 @@ const TextShadow = ({ setSettingStore , settingStore }) => {
 
     }
 
+
+    useEffect(function setRecoverStoreHandlerInEditMode() {
+        if(settingStore?.defaultValue) {
+            const [color , h , v , blur] = settingStore.defaultValue.split(" ");
+            
+            setTextShadowStore({
+                x : removePxFormString(h),
+                y : removePxFormString(v),
+                blur : [removePxFormString(blur)],
+                color : rgbToHex(color)
+            })
+
+        }
+    } , [])
+
     useEffect(function liftDefaultValueForInitial() {
-        setSettingStore('defaultValue' , textShadowStore);
+        if(!settingStore?.defaultValue) setSettingStore('defaultValue' , textShadowStore);
     } , []);
+
 
     return (
         <div className="textShadow">
