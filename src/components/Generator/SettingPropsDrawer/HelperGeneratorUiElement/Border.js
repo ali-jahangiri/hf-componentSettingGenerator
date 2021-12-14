@@ -1,4 +1,4 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import Slider from 'react-input-slider';
 import { borderGenerator, borderRadiusGenerator, hexToRgb, removePxFormString, rgbToHex } from "../../../../utils";
 import RangeSlider from "../../../RangeSlider";
@@ -33,18 +33,6 @@ const radiusList = [
         }
     },
     {
-        label : "BL",
-        style : {
-            top : "102%" ,
-            left : 0
-        },
-        rotateAngle : 45,
-        perfectValueStyle : {
-            top : "102%" , 
-            left: "-4%"
-        }
-    },
-    {
         label : "BR",
         style : {
             top : "100%" ,
@@ -54,6 +42,18 @@ const radiusList = [
         perfectValueStyle : {
             top : "100%" , 
             left: "102%"
+        }
+    },
+    {
+        label : "BL",
+        style : {
+            top : "102%" ,
+            left : 0
+        },
+        rotateAngle : 45,
+        perfectValueStyle : {
+            top : "102%" , 
+            left: "-4%"
         }
     },
 ]
@@ -100,13 +100,21 @@ const Border = ({ setSettingStore , settingStore }) => {
         if(settingStore?.defaultValue) {
             const { color , width , style , radius } = settingStore.defaultValue;
 
+            const hex = (() => {
+                const base = rgbToHex(color);
+                return base.slice(0 , base.length - 2)
+            })();
+
             setBorderSettingClone({
-                color : { hex : rgbToHex(color) },
+                color : { hex },
                 width,
                 style,
             });
 
-            setEnableStyle(settingStore.additionalConfig);
+            (() => {
+                const { color , width , style , radius} = settingStore._config;
+                setEnableStyle({ color , width , style , radius });
+            })();
 
             const baseRadiusObject = {};
             radius.split(" ").forEach((el , index) => {
@@ -122,7 +130,6 @@ const Border = ({ setSettingStore , settingStore }) => {
     useEffect(function liftDefaultValueToParent() {
         if(!isInInitial) {
             const color = (() => {
-                console.log(hexToRgb(borderSettingClone.color.hex) , 'probke,m');
                 const { r , g , b } = borderSettingClone.color ? hexToRgb(borderSettingClone.color.hex) : { r : 0 , g : 0 , b : 0 };
                 return `rgba(${r} , ${g} , ${b} , 1)`
             })();
@@ -132,9 +139,10 @@ const Border = ({ setSettingStore , settingStore }) => {
                 color,
             });
             setSettingStore("additionalConfig" , enableStyle);
+            console.log('sssssssss');
         }
 
-    } , [borderSettingClone , radiusClone, isInInitial])
+    } , [borderSettingClone , radiusClone, isInInitial , enableStyle])
 
 
     const changeEnableStatusHandler = (key) => {
@@ -148,7 +156,7 @@ const Border = ({ setSettingStore , settingStore }) => {
         <div className="border">
             <PrimaryForm 
                 hideItems={["defaultValue"]} 
-                setStore={setSettingStore} 
+                setStore={setSettingStore}
                 store={settingStore} />
             <div className="border__container">
                     <div style={{ width : "80%" }}>

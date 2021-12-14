@@ -19,8 +19,13 @@ const BoxShadow = ({ setSettingStore , settingStore , setIsValidInNested }) => {
     useEffect(function setRecoverStoreHandlerInEditMode() {
         if(settingStore?.defaultValue) {
             const [x , y , blur , spread , color] = settingStore.defaultValue.split(" ");
-            setBoxShadowPos({ x : removePxFormString(x) , y: removePxFormString(y) });
-            setBoxShadowColor({ hex : rgbToHex(color) })
+            
+            setBoxShadowPos({ x : removePxFormString(x) + 50 , y: removePxFormString(y) + 50 });
+            const hex = (() => {
+                const base = rgbToHex(color);
+                return base.slice(0 , base.length - 2)
+            })();
+            setBoxShadowColor({ hex })
             setBoxShadowBlur({ values : [Number(removePxFormString(blur))] });
             setBoxShadowSpread({ values : [Number(removePxFormString(spread))] });
         }
@@ -90,7 +95,8 @@ const BoxShadow = ({ setSettingStore , settingStore , setIsValidInNested }) => {
                             y={boxShadowPos.y} 
                             onChange={(pos) => {
                                 setBoxShadowPos(pos);
-                                setUserTouchInterpolatorForLastTime(false)
+                                setHaveValidInterpolatedValue(true);
+                                setUserTouchInterpolatorForLastTime(false);
                             }}
                         />
                     </div>
@@ -105,6 +111,7 @@ const BoxShadow = ({ setSettingStore , settingStore , setIsValidInNested }) => {
                             value={boxShadowBlur}
                             onChange={value => {
                                 setBoxShadowBlur(value);
+                                setHaveValidInterpolatedValue(true)
                                 setUserTouchInterpolatorForLastTime(false);
                             }}
                             label="شدت تاری"
@@ -114,6 +121,7 @@ const BoxShadow = ({ setSettingStore , settingStore , setIsValidInNested }) => {
                             value={boxShadowSpread}
                             onChange={value => {
                                 setBoxShadowSpread(value);
+                                setHaveValidInterpolatedValue(true)
                                 setUserTouchInterpolatorForLastTime(false);
                             }}
                             label="شدت پخش شدگی رنگ"

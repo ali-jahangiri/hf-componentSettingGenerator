@@ -11,6 +11,12 @@ export const selfClearTimeout = (cb , timeout) => {
 
 
 export function hexToRgb(hex) {
+    // Expand shorthand form (e.g. "03F") to full form (e.g. "0033FF")
+    var shorthandRegex = /^#?([a-f\d])([a-f\d])([a-f\d])$/i;
+    hex = hex.replace(shorthandRegex, function(m, r, g, b) {
+      return r + r + g + g + b + b;
+    });
+  
     var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
     return result ? {
       r: parseInt(result[1], 16),
@@ -18,7 +24,6 @@ export function hexToRgb(hex) {
       b: parseInt(result[3], 16)
     } : null;
 }
-
 
 export function debounce(func, wait, immediate) {
 	var timeout;
@@ -57,7 +62,7 @@ export const borderRadiusGenerator = clone => {
 
 
 export const borderGenerator = clone => {
-    return `${clone?.width || 0}px ${clone?.type || "solid"} ${clone?.color?.hex}`
+    return `${clone?.width || 0}px ${clone?.style || "solid"} ${clone?.color?.hex}`
 }
 
 
@@ -85,8 +90,17 @@ export function rgbToHex(rgb) {
 
 export const filterKeyFromObject = (target = {} , excludeList = []) => {
     const base = {};
-    Object.entries(target).map(([key , value]) => {
+    Object.entries(target).map(([key]) => {
         if(!excludeList.includes(key)) base[key] = target[key]
+    })
+    return base;
+}
+
+
+export const makeSortedArrayForStore = (baseSort = [] , target = '') => {
+    const base = {};
+    target.split(" ").forEach((el , i) => {
+        base[baseSort[i].label] = removePxFormString(el) === 0 ? "" : removePxFormString(el)
     })
     return base;
 }

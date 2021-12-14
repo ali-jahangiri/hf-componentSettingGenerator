@@ -14,7 +14,8 @@ const validationSettingStoreHandler = (store = { name : "" , title : "" , defaul
 
 
 const validationSettingInEditHandler = (cloned , newStore , isValidInNested) => {
-    if(cloned.name !== newStore.name || cloned.defaultValue !== newStore.defaultValue || cloned.title !== newStore.title || isValidInNested) return true;
+    console.log(cloned , newStore);
+    if(cloned.name !== newStore.name || cloned.defaultValue !== newStore.defaultValue || cloned.title !== newStore.title) return true;
     else return false
 }
 
@@ -84,6 +85,7 @@ const SettingPropsDrawer = ({
     }
 
     const innerUpdateHandler = () => {
+        console.log(settingStore , "redocu");
         updateSettingHandler(settingStore);
         setIsValidInNested(false)
         innerCloseHandler();
@@ -107,7 +109,9 @@ const SettingPropsDrawer = ({
                         </button>
                     }
                 </div>
-                <p>ایجاد تنظیمات جدید</p>
+                {
+                    isInEditMode ? <p>مشاهده و بروزرسانی تنظیمات</p> : <p>ایجاد تنظیمات جدید</p>
+                }
             </div>
             <div className="settingPropsDrawer__itemDirectory">
                 {
